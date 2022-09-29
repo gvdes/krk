@@ -53,6 +53,9 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
+        'kraken' => \App\Http\Middleware\KrakenAuth::class,
+        'usestore' => \App\Http\Middleware\UseStore::class,
+        'usewarehouse' => \App\Http\Middleware\UseWarehouse::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,

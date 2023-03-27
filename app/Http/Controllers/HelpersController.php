@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+use Twilio\Rest\Client as TwilioClient;
+use Illuminate\Support\Str;
+
 
 class HelpersController extends Controller
 {
@@ -53,5 +59,35 @@ class HelpersController extends Controller
 
         // return response()->json(["dones"=>$dones,"fails"=>$fails,"storesreq"=>$reqstores,"stores"=>$stores]);// esta linea incluye mucha info descomentar si se requieren mas detalles
         return response()->json(["dones"=>$dones,"fails"=>$fails]);
+    }
+
+    public function genpass(Request $request){
+        $str = $request->route("str");
+
+        $newPass = Hash::make($str);
+
+        return response()->json([
+            "hash" => $newPass
+        ]);
+    }
+
+    public function twiliotest(){
+        // $date = Carbon::now()->format("Y-m-d H:i:s a");
+        $twisid = env("TWILIO_SID");;
+        $twitkn = env("TWILIO_AUTH_TOKEN");
+
+        try {
+            $twcli = new TwilioClient($twisid,$twitkn);
+            $twcli->messages->create('+525574877504',['from'=>"+525591620437",'body'=>"Hello from VizApp your auth code is 756423"]);
+
+            return response()->json([$twisid,$twitkn]);
+        } catch (\Throwable $th) { return response()->json($th->getMessage(),400); }
+
+        // return response()->json([ "date"=>$date ]);
+    }
+
+    public function genUuid(){
+        $uuid = Str::uuid();
+        return response()->json(["uuid"=>$uuid]);
     }
 }

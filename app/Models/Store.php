@@ -8,5 +8,5 @@ class Store extends Model
 {
     protected $table = 'stores';
 
-    protected $hidden = [ 'port', 'local_port', 'local_domain', 'domain' ];
+    protected $hidden = [ 'access_file', 'port', 'local_port', 'local_domain', 'domain' ];
 }

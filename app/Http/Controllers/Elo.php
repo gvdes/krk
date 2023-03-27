@@ -2,32 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Location;
-use App\Models\Warehouse;
+use App\Models\Product;
+use App\Models\RestockOrder;
+use App\Models\RestockTypes;
+use App\Models\ProductStock;
+use App\Models\RestockStates;
+use App\Models\ProductLocation;
 
-class Elo extends Controller
-{
-    public function index(){
-        $loc = 118;
+class Elo extends Controller {
+    public function index(Request $request){
+        $nick = "crack";
 
-        $location = Location::findOrFail($loc);
-        $location->load(['warehouse' => fn($q) => $q->with('store')]);
-        $wid = $location->warehouse->store->id;
+        $user = User::where('nick',$nick)->orWhere('celphone',$nick)->orWhere('email',$nick)->first();
 
-        $idwrhs = Warehouse::where("_store",$wid)->select("id")->get();
-
-        $location->load([
-            'parent',
-            'products' => fn($q) => $q->with([
-                    'stocks' => fn($q) => $q->with([ 'warehouse' ])->whereIn("_warehouse", $idwrhs)
-                ])
-                ->where( "product_locations.deleted_at",null )
-                ->select('id','short_code','code','barcode','description'),
+        $user->load([
+            'rol',
+            'state',
+            'store',
+            'stores',
+            'modules' => fn($q) => $q->with([ 'permission', 'module' ])
         ]);
 
-        return 'Ok';
-        // return response()->json($user);
+        // dd($user);
+
+        return "ok";
     }
 }
+
+/**
+ * hay dos formas de extraer / visualizar los SQLs generados por eloquent
+ */
+
+ /**
+ * Usar el Metodo ->toSql, este devolvera el query que construyo, por tanto no lo ejecuta
+ *
+ * $users = User::where("id",">",2)->toSql();
+ *
+ * dd($users);
+ */
+
+ /**
+ * La segunda forma es despues de haber ejecutado el query
+ *
+ * DB::enableQueryLog();
+ * $pdss = User::get();
+ * dd(DB::getQueryLog());
+ */

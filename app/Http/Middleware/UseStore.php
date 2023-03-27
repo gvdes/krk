@@ -23,6 +23,6 @@ class UseStore
         $access = UserStores::where([ ['_user',$uid], ['_store',$sid] ])->first();
         if($access && $access->_state==1){
             return $next($request);
-        }else{ return response()->json("No tienes acceso a esta sucursal",401); }
+        }else{ return response()->json("Acceso restringido",401); }
     }
 }

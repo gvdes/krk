@@ -14,4 +14,16 @@ class ProductStock extends Model
     public function warehouse(){
         return $this->belongsTo('App\Models\Warehouse','_warehouse','id');
     }
+
+    public function product(){
+        return $this->belongsTo("App\Models\Product","_product","id");
+    }
+
+    public function state(){
+        return $this->hasOne('App\Models\ProductStates','id','_state');
+    }
+
+    public function unitsupply(){
+        return $this->hasOneThrough('App\Models\UnitMeassure','App\Models\Product','id','id','_product','_assortment_unit');
+    }
 }

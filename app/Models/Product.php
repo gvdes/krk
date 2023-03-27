@@ -11,23 +11,18 @@ class Product extends Model
 
     protected $table = "products";
 
-    public function relateds(){
-        return $this->hasMany('App\Models\ProductAdditionalBarcode','_product','id');
-    }
+    public function state(){ return $this->hasOne('App\Models\ProductStates','id','_state'); }
 
-    public function locations(){
-        return $this->hasManyThrough('App\Models\Location','App\Models\ProductLocation','_product','id','id','_location');
-    }
+    public function relateds(){ return $this->hasMany('App\Models\ProductAdditionalBarcode','_product','id'); }
 
-    public function stocks(){
-        return $this->hasMany('App\Models\ProductStock','_product','id');
-    }
+    public function locations(){ return $this->hasManyThrough('App\Models\Location','App\Models\ProductLocation','_product','id','id','_location'); }
+
+    public function stocks(){ return $this->hasMany('App\Models\ProductStock','_product','id'); }
+
+    public function stock(){ return $this->hasOne('App\Models\ProductStock','_product','id'); }
+
+    public function unitsupply(){ return $this->hasOne('App\Models\UnitMeassure','id','_assortment_unit'); }
+
+    public function media(){ return $this->hasMany('App\Models\ProductMedia','_product','id'); }
+
 }
-
-
-/**
- *
- * "SQLSTATE[42S22]:
- * Column not found: 1054 Unknown column 'product_stock.id' in 'where clause'
- * (SQL: select * from `product_stock` where `product_stock`.`id` in (?))"
- */

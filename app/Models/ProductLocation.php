@@ -10,4 +10,8 @@ class ProductLocation extends Model
 {
     protected $table = 'product_locations';
     protected $fillable = ["_product", "_location" ];
+
+    public function warehouse(){
+        return $this->hasOneThrough("App\Models\Warehouse","App\Models\Location","id","id","_location","_warehouse");
+    }
 }

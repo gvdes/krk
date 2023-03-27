@@ -30,16 +30,24 @@ return [
 
     'disks' => [
 
-        'local' => [
-            'driver' => 'local',
-            'root' => storage_path('app'),
-            'throw' => false,
-        ],
+        // 'local' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app'),
+        //     'throw' => false,
+        // ],
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public'),
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'multimedia' => [
+            'driver' => 'local',
+            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public/multimedia'),
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -64,13 +72,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may configure the symbolic links that will be created when the
-    | `storage:link` Artisan command is executed. The array keys should be
+\en-US\docs\Web\API\structuredClone    | `storage:link` Artisan command is executed. The array keys should be
     | the locations of the links and the values should be their targets.
     |
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('multimedia') => storage_path('app/public/multimedia'),
     ],
 
 ];

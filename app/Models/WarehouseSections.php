@@ -12,6 +12,6 @@ class WarehouseSections extends Model
     protected $table = 'warehouse_locations';
 
     public function warehouse(){
-        $this->belongsTo('App\Models\Warehouse','','');
+        $this->belongsTo('App\Models\Warehouse','_warehouse','id');
     }
 }

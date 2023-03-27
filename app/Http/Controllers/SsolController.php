@@ -46,35 +46,3 @@ class SsolController extends Controller
         }catch (\PDOException $e){ die($e->getMessage()); }
     }
 }
-
-/**
- *             $q = "SELECT
-                    A.CODART,
-                    A.CCOART,
-                    A.EANART,
-                    A.DESART,
-                    A.DEEART,
-                    A.REFART,
-                    A.UPPART,
-                    A.FAMART,
-                    A.CP1ART,
-                    A.PCOART,
-                    A.NPUART,
-                    A.PHAART,
-                    A.DIMART,
-                    A.CP5ART,
-                    A.FUMART,
-                    A.FALART,
-                    PMEN.PRELTA AS PMEN,
-                    PMAY.PRELTA AS PMAY,
-                    PDOC.PRELTA AS PDOC,
-                    PCAJ.PRELTA AS PCAJ
-                FROM ((((
-                        F_ART AS A
-                        LEFT JOIN F_LTA AS PMEN ON (PMEN.ARTLTA=A.CODART AND PMEN.TARLTA=1)
-                    )LEFT JOIN F_LTA AS PMAY ON (PMAY.ARTLTA=A.CODART AND PMAY.TARLTA=2)
-                    )LEFT JOIN F_LTA AS PDOC ON (PDOC.ARTLTA=A.CODART AND PDOC.TARLTA=3)
-                    )LEFT JOIN F_LTA AS PCAJ ON (PCAJ.ARTLTA=A.CODART AND PCAJ.TARLTA=4)
-                    )
-                WHERE A.FUMART Between #".$ini."# AND #".$end."#";
- */
